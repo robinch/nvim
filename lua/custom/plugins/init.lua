@@ -6,4 +6,5 @@ return {
   'ThePrimeagen/harpoon',
   'folke/tokyonight.nvim',
   'mbbill/undotree',
+  'nvim-treesitter/playground',
 }
