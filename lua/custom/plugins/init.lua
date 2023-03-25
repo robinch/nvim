@@ -5,4 +5,5 @@
 return {
   'ThePrimeagen/harpoon',
   'folke/tokyonight.nvim',
+  'mbbill/undotree',
 }
