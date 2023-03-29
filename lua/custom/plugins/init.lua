@@ -15,4 +15,6 @@ return {
   'github/copilot.vim',
   -- tmux & split window navigator
   'christoomey/vim-tmux-navigator',
+  -- zenmode
+  'folke/zen-mode.nvim',
 }
