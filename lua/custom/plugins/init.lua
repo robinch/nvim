@@ -17,4 +17,6 @@ return {
   'christoomey/vim-tmux-navigator',
   -- zenmode
   'folke/zen-mode.nvim',
+  -- nvim-tree
+  'nvim-tree/nvim-tree.lua',
 }
