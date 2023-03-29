@@ -19,4 +19,6 @@ return {
   'folke/zen-mode.nvim',
   -- nvim-tree
   'nvim-tree/nvim-tree.lua',
+  -- nvim-tree icons
+  'nvim-tree/nvim-web-devicons',
 }
