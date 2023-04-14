@@ -4,11 +4,13 @@ if not cmp_status_ok then
 	return
 end
 
--- cmp.setup {
--- 	completion = {
--- 		autocomplete = false,
--- 	},
--- 	experimental = {
--- 		ghost_lines = false,
--- 	},
--- }
+cmp.setup {
+	mapping = {
+		['<C-g>'] = cmp.mapping(function(fallback)
+			vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+		end)
+	},
+	experimental = {
+		ghost_text = false -- this feature conflict with copilot.vim's preview.
+	}
+}
