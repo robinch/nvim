@@ -49,6 +49,9 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').git_files, { desc
 vim.g['copilot_no_tab_map'] = true
 vim.g['copilot_assume_mapped'] = true
 
-vim.keymap.set('i', '<C-.>', '<Plug>(copilot-next)')
-vim.keymap.set('i', '<C-,>', '<Plug>(copilot-previous)')
-vim.keymap.set('i', '<C-a>', 'copilot#Accept("\\<CR>")', { expr=true, silent = true })
+-- vim.keymap.set('i', '<M-.>', '<Plug>(copilot-next)')
+-- vim.keymap.set('i', '<M-,>', '<Plug>(copilot-previous)')
+
+--vim.keymap.set('i', '<C-a>', '<Plug>(copilot-next)')
+--vim.keymap.set('i', '<C-ö>', '<Plug>(copilot-previous)')
+-- vim.keymap.set('i', '<C-a>', 'copilot#Accept("\\<CR>")', { expr=true, silent = true })
