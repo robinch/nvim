@@ -22,5 +22,7 @@ return {
   -- nvim-tree icons
   'nvim-tree/nvim-web-devicons',
   -- context
-  'nvim-treesitter/nvim-treesitter-context'
+  'nvim-treesitter/nvim-treesitter-context',
+  -- illuminate
+  'RRethy/vim-illuminate'
 }
