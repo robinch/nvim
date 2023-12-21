@@ -24,5 +24,10 @@ return {
   -- context
   'nvim-treesitter/nvim-treesitter-context',
   -- illuminate
-  'RRethy/vim-illuminate'
+  'RRethy/vim-illuminate',
+  -- ufo (code folding)
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async'
+  }
 }

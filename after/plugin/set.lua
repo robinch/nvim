@@ -24,6 +24,10 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
+-- folding
+-- vim.opt.foldenable = true
+-- vim.opt.foldlevelstart = 99
+
 
 -- Hightlight word on search only
 vim.on_key(function(char)
