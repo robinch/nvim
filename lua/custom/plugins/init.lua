@@ -5,6 +5,8 @@
 return {
   -- can mark multiple file and jump between them
   'ThePrimeagen/harpoon',
+  -- refactoring
+  'ThePrimeagen/refactoring.nvim',
   -- colorscheme
   'folke/tokyonight.nvim',
   -- Can show a tree with all undo's
