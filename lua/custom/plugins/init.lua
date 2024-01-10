@@ -31,5 +31,7 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async'
-  }
+  },
+  -- Can have terminal programs in nvim
+  'akinsho/toggleterm.nvim',
 }
