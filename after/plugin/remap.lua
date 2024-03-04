@@ -43,3 +43,5 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- telescope
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').git_files, { desc = '[S]earch in [R]epo' })
+-- clear search highlight
+vim.api.nvim_set_keymap('n', '<leader>l', ':noh<CR>', { noremap = true, silent = true, desc = 'C[l]ear highlight' })
