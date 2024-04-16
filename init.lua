@@ -263,6 +263,8 @@ require('telescope').setup {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ['<PageUp>'] = require('telescope.actions').preview_scrolling_up,
+        ['<PageDown>'] = require('telescope.actions').preview_scrolling_down,
       },
     },
     file_ignore_patterns = {
