@@ -25,6 +25,8 @@ vim.keymap.set("n", "<leader>fd", vim.lsp.buf.format, {desc = '[F]ormat [D]ocume
 
 -- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 -- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>qn", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<leader>qp", "<cmd>cprev<CR>zz")
 -- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 -- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
