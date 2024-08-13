@@ -3,7 +3,7 @@ vim.g.copilot_filetypes = {["*"] = false, elixir = true, go = true, rust = true}
 
 ------ disabe tab and use ctrl+j instead
 -- Insert mode mapping
-vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', {silent = true, script = true, expr = true})
+vim.api.nvim_set_keymap('i', '<C-j>', 'copilot#Accept("\\<CR>")', {silent = true, script = true, expr = true})
 -- vim.api.nvim_set_keymap('i', '<M-j>', '<Plug>(copilot-next)', {silent = true})
 -- vim.api.nvim_set_keymap('i', '<M-k>', '<Plug>(copilot-prev)', {silent = true})
 

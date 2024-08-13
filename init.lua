@@ -58,6 +58,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
 --
@@ -92,6 +93,50 @@ require('lazy').setup({
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
+    config = function()
+      -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      local lspconfig = require("lspconfig")
+
+      lspconfig.tsserver.setup({
+        capabilities = capabilities,
+        init_options = {
+          disableSuggestions = true,
+        },
+      })
+      lspconfig.html.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+      })
+
+      lspconfig.cssls.setup({
+        capabilities = capabilities,
+      })
+
+      lspconfig.tailwindcss.setup({
+        capabilities = capabilities,
+        -- filetypes = { "html", "elixir", "eelixir", "heex" },
+        init_options = {
+          userLanguages = {
+            elixir = "html-eex",
+            eelixir = "html-eex",
+            heex = "html-eex",
+          },
+        },
+        settings = {
+          tailwindCSS = {
+            experimental = {
+              classRegex = {
+                'class[:]\\s*"([^"]*)"',
+              },
+            },
+          },
+        },
+      })
+    end
   },
 
   { -- Autocompletion
@@ -277,18 +322,8 @@ require('telescope').setup {
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
--- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
 
- -- See `:help telescope.builtin`
+-- See `:help telescope.builtin`
 local builtin = require 'telescope.builtin'
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -300,6 +335,15 @@ vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iag
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>/', function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = '[/] Fuzzily search in current buffer' })
+
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -402,7 +446,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<C-i>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -441,12 +485,13 @@ local servers = {
 -- Setup neovim lua configuration
 require('neodev').setup()
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()
+
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -484,7 +529,7 @@ cmp.setup {
     ['<PageDown>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<C-k>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
+    ['<C-y>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
