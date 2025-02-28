@@ -38,5 +38,5 @@ return {
     dependencies = 'kevinhwang91/promise-async'
   },
   -- Can have terminal programs in nvim
-  'akinsho/toggleterm.nvim',
+  { "akinsho/toggleterm.nvim", version = "*" },
 }
