@@ -352,7 +352,7 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim', 'elixir', 'heex', 'eex', 'gleam', 'zig' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vim', 'elixir', 'heex', 'eex', 'gleam', 'zig' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -476,6 +476,11 @@ local servers = {
   -- tsserver = {},
   gopls = {},
   rust_analyzer = {},
+
+  zls = {
+    -- cmd = { "/Users/robin/code/tools/zls-0.13.0" },
+    cmd = { "/Users/robin/code/tools/zls-0.14.0-dev" },
+  },
 
   lua_ls = {
     Lua = {
