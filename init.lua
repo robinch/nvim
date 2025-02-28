@@ -99,7 +99,7 @@ require('lazy').setup({
 
       local lspconfig = require("lspconfig")
 
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
         init_options = {
           disableSuggestions = true,
