@@ -116,26 +116,29 @@ require('lazy').setup({
         capabilities = capabilities,
       })
 
-      lspconfig.tailwindcss.setup({
-        capabilities = capabilities,
-        -- filetypes = { "html", "elixir", "eelixir", "heex" },
-        init_options = {
-          userLanguages = {
-            elixir = "html-eex",
-            eelixir = "html-eex",
-            heex = "html-eex",
-          },
-        },
-        settings = {
-          tailwindCSS = {
-            experimental = {
-              classRegex = {
-                'class[:]\\s*"([^"]*)"',
-              },
-            },
-          },
-        },
-      })
+
+      -- It was compaining about tailwind, need to fix this when
+      -- I'm using tailwind again.
+      -- lspconfig.tailwindcss.setup({
+      --   capabilities = capabilities,
+      --   -- filetypes = { "html", "elixir", "eelixir", "heex" },
+      --   init_options = {
+      --     userLanguages = {
+      --       elixir = "html-eex",
+      --       eelixir = "html-eex",
+      --       heex = "html-eex",
+      --     },
+      --   },
+      --   settings = {
+      --     tailwindCSS = {
+      --       experimental = {
+      --         classRegex = {
+      --           'class[:]\\s*"([^"]*)"',
+      --         },
+      --       },
+      --     },
+      --   },
+      -- })
     end
   },
 
