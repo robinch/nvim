@@ -99,6 +99,10 @@ require('lazy').setup({
 
       local lspconfig = require("lspconfig")
 
+      lspconfig.zls.setup({
+        capabilities = capabilities,
+      })
+
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
         init_options = {
