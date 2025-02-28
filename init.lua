@@ -333,6 +333,10 @@ require('telescope').setup {
         ['<C-d>'] = false,
         ['<PageUp>'] = require('telescope.actions').preview_scrolling_up,
         ['<PageDown>'] = require('telescope.actions').preview_scrolling_down,
+        ['<C-q>'] = require('telescope.actions').send_to_qflist
+      },
+      n = {
+        ['<C-q>'] = require('telescope.actions').send_selected_to_qflist
       },
     },
     file_ignore_patterns = {
