@@ -3,8 +3,13 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  "nvim-lua/plenary.nvim",
   -- can mark multiple file and jump between them
-  'ThePrimeagen/harpoon',
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
   -- refactoring
   'ThePrimeagen/refactoring.nvim',
   -- colorscheme
