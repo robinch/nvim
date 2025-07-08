@@ -2,36 +2,36 @@ local harpoon = require("harpoon")
 
 -- REQUIRED
 harpoon:setup({
-	settings = {
-		save_on_toggle = true,
-		sync_on_ui_close = false,
-	}
+    settings = {
+        save_on_toggle = true,
+        sync_on_ui_close = false,
+    }
 })
 -- REQUIRED
 
 -- basic telescope configuration
 local conf = require("telescope.config").values
 local function toggle_telescope(harpoon_files)
-	local file_paths = {}
-	for _, item in ipairs(harpoon_files.items) do
-		table.insert(file_paths, item.value)
-	end
+    local file_paths = {}
+    for _, item in ipairs(harpoon_files.items) do
+        table.insert(file_paths, item.value)
+    end
 
-	require("telescope.pickers").new({}, {
-		prompt_title = "Harpoon",
-		finder = require("telescope.finders").new_table({
-			results = file_paths,
-		}),
-		previewer = conf.file_previewer({}),
-		sorter = conf.generic_sorter({}),
-	}):find()
+    require("telescope.pickers").new({}, {
+        prompt_title = "Harpoon",
+        finder = require("telescope.finders").new_table({
+            results = file_paths,
+        }),
+        previewer = conf.file_previewer({}),
+        sorter = conf.generic_sorter({}),
+    }):find()
 end
 
 vim.keymap.set("n", "<leader>ma", function() harpoon:list():add() end, { desc = "[A]dd mark to harpoon" })
 vim.keymap.set("n", "<leader>mt", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
-	{ desc = "[T]oggle quick harpoon quick menu" })
+    { desc = "[T]oggle quick harpoon quick menu" })
 vim.keymap.set("n", "<leader>mf", function() toggle_telescope(harpoon:list()) end,
-	{ desc = "[F]uzzy find using Telescope" })
+    { desc = "[F]uzzy find using Telescope" })
 
 
 vim.keymap.set("n", "<leader>m1", function() harpoon:list():select(1) end, { desc = "Goto mark [1]" })
