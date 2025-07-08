@@ -102,32 +102,32 @@ require('lazy').setup({
 
       -- Lexical
 
-      local lexical_config = {
-        filetypes = { "elixir", "eelixir", "heex" },
-        cmd = { "/Users/robin/code/tools/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-        settings = {},
-      }
-
-      if not configs.lexical then
-        configs.lexical = {
-          default_config = {
-            filetypes = lexical_config.filetypes,
-            cmd = lexical_config.cmd,
-            root_dir = function(fname)
-              return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-            end,
-            -- optional settings
-            settings = lexical_config.settings,
-          },
-        }
-      end
-
-      lspconfig.lexical.setup({
-        capabilities = capabilities,
-        on_attach = function(_)
-          print("Lexical has started.")
-        end
-      })
+      -- local lexical_config = {
+      --   filetypes = { "elixir", "eelixir", "heex" },
+      --   cmd = { "/Users/rob/code/tools/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+      --   settings = {},
+      -- }
+      --
+      -- if not configs.lexical then
+      --   configs.lexical = {
+      --     default_config = {
+      --       filetypes = lexical_config.filetypes,
+      --       cmd = lexical_config.cmd,
+      --       root_dir = function(fname)
+      --         return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+      --       end,
+      --       -- optional settings
+      --       settings = lexical_config.settings,
+      --     },
+      --   }
+      -- end
+      --
+      -- lspconfig.lexical.setup({
+      --   capabilities = capabilities,
+      --   on_attach = function(_)
+      --     print("Lexical has started.")
+      --   end
+      -- })
 
 
       lspconfig.zls.setup({
@@ -546,6 +546,15 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   rust_analyzer = {},
+
+  elixirls = {
+    settings = {
+      elixirLS = {
+        dialyzerEnabled = false,
+        fetchDeps = false,
+      },
+    },
+  },
 
   zls = {
     -- cmd = { "/Users/robin/code/tools/zls-0.13.0" },
