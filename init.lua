@@ -420,6 +420,14 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
+vim.keymap.set('n', '<leader>st', function()
+  builtin.live_grep({
+    additional_args = function()
+      return { "--hidden" }
+    end,
+  })
+end, { desc = '[S]earch by Grep (incl. hidden)' })
+
 
 
 -- [[ Configure Treesitter ]]
