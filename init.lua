@@ -92,90 +92,7 @@ require('lazy').setup({
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
-    },
-    config = function()
-      -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      local lspconfig = require("lspconfig")
-      local configs = require("lspconfig.configs")
-
-      -- Lexical
-
-      -- local lexical_config = {
-      --   filetypes = { "elixir", "eelixir", "heex" },
-      --   cmd = { "/Users/rob/code/tools/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-      --   settings = {},
-      -- }
-      --
-      -- if not configs.lexical then
-      --   configs.lexical = {
-      --     default_config = {
-      --       filetypes = lexical_config.filetypes,
-      --       cmd = lexical_config.cmd,
-      --       root_dir = function(fname)
-      --         return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-      --       end,
-      --       -- optional settings
-      --       settings = lexical_config.settings,
-      --     },
-      --   }
-      -- end
-      --
-      -- lspconfig.lexical.setup({
-      --   capabilities = capabilities,
-      --   on_attach = function(_)
-      --     print("Lexical has started.")
-      --   end
-      -- })
-
-
-      lspconfig.zls.setup({
-        capabilities = capabilities,
-      })
-
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-        init_options = {
-          disableSuggestions = true,
-        },
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities,
-      })
-
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-
-      lspconfig.cssls.setup({
-        capabilities = capabilities,
-      })
-
-
-      -- It was compaining about tailwind, need to fix this when
-      -- I'm using tailwind again.
-      -- lspconfig.tailwindcss.setup({
-      --   capabilities = capabilities,
-      --   -- filetypes = { "html", "elixir", "eelixir", "heex" },
-      --   init_options = {
-      --     userLanguages = {
-      --       elixir = "html-eex",
-      --       eelixir = "html-eex",
-      --       heex = "html-eex",
-      --     },
-      --   },
-      --   settings = {
-      --     tailwindCSS = {
-      --       experimental = {
-      --         classRegex = {
-      --           'class[:]\\s*"([^"]*)"',
-      --         },
-      --       },
-      --     },
-      --   },
-      -- })
-    end
+    }
   },
 
   { -- Autocompletion
@@ -556,6 +473,7 @@ local servers = {
   rust_analyzer = {},
 
   elixirls = {
+    cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" }, -- Mason path
     settings = {
       elixirLS = {
         dialyzerEnabled = false,
@@ -577,32 +495,43 @@ local servers = {
   },
 }
 
--- Setup neovim lua configuration
-require('neodev').setup()
-
-
--- Setup mason so it can manage external tooling
-require('mason').setup()
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
-
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
+local servers = {
+  rust_analyzer = {},
+  elixirls = {
+    cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" },
+    settings = { elixirLS = { dialyzerEnabled = false, fetchDeps = false } },
+  },
+  zls = {
+    cmd = { "/Users/robin/code/tools/zls-0.14.0-dev" },
+  },
+  lua_ls = {
+    settings = {
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+      },
+    },
+  },
 }
 
-local lspconfig = require 'lspconfig'
+require("neodev").setup()
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "rust_analyzer", "elixirls", "lua_ls" },
+  automatic_enable = { exclude = { "zls" } }, -- prevents Mason from auto-configuring zls
+})
 
-for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-  lspconfig[server_name].setup {
+local capabilities = require("cmp_nvim_lsp").default_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
+
+local lspconfig = require("lspconfig")
+
+for name, opts in pairs(servers) do
+  lspconfig[name].setup(vim.tbl_deep_extend("force", {
     capabilities = capabilities,
-    on_attach = on_attach,
-    settings = servers[server_name],
-  }
+    on_attach = on_attach, -- your attachment function
+  }, opts))
 end
 
 -- nvim-cmp setup
