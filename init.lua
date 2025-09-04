@@ -496,6 +496,7 @@ local servers = {
 }
 
 local servers = {
+  gopls = {},
   rust_analyzer = {},
   elixirls = {
     cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" },
@@ -517,7 +518,7 @@ local servers = {
 require("neodev").setup()
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "rust_analyzer", "elixirls", "lua_ls" },
+  ensure_installed = { "rust_analyzer", "elixirls", "lua_ls", "gopls" },
   automatic_enable = { exclude = { "zls" } }, -- prevents Mason from auto-configuring zls
 })
 
